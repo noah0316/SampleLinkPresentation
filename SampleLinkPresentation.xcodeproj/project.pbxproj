@@ -10,9 +10,12 @@
 		4F8A27F327C0F99D00B159B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A27F227C0F99D00B159B9 /* AppDelegate.swift */; };
 		4F8A27F527C0F99D00B159B9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A27F427C0F99D00B159B9 /* SceneDelegate.swift */; };
 		4F8A27F727C0F99D00B159B9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A27F627C0F99D00B159B9 /* SearchViewController.swift */; };
-		4F8A27FA27C0F99D00B159B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F8A27F827C0F99D00B159B9 /* Main.storyboard */; };
-		4F8A27FC27C0F99F00B159B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F8A27FB27C0F99F00B159B9 /* Assets.xcassets */; };
-		4F8A27FF27C0F99F00B159B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F8A27FD27C0F99F00B159B9 /* LaunchScreen.storyboard */; };
+		4F8A280D27C1171200B159B9 /* MetaDataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A280C27C1171200B159B9 /* MetaDataCache.swift */; };
+		4F8A281027C11A0D00B159B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F8A27FB27C0F99F00B159B9 /* Assets.xcassets */; };
+		4F8A281127C11A1000B159B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F8A27FD27C0F99F00B159B9 /* LaunchScreen.storyboard */; };
+		4F8A281427C11B3D00B159B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F8A27F827C0F99D00B159B9 /* Main.storyboard */; };
+		4F8A281627C11CD900B159B9 /* MetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A281527C11CD900B159B9 /* MetaData.swift */; };
+		4F8A281827C122CC00B159B9 /* LPError+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8A281727C122CC00B159B9 /* LPError+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +26,10 @@
 		4F8A27F927C0F99D00B159B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4F8A27FB27C0F99F00B159B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4F8A27FE27C0F99F00B159B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		4F8A280027C0F99F00B159B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4F8A280027C0F99F00B159B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = SampleLinkPresentation/Supports/Info.plist; sourceTree = SOURCE_ROOT; };
+		4F8A280C27C1171200B159B9 /* MetaDataCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaDataCache.swift; sourceTree = "<group>"; };
+		4F8A281527C11CD900B159B9 /* MetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaData.swift; sourceTree = "<group>"; };
+		4F8A281727C122CC00B159B9 /* LPError+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LPError+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +101,9 @@
 		4F8A280927C101AC00B159B9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4F8A280C27C1171200B159B9 /* MetaDataCache.swift */,
+				4F8A281527C11CD900B159B9 /* MetaData.swift */,
+				4F8A281727C122CC00B159B9 /* LPError+Extensions.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -173,9 +182,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F8A27FF27C0F99F00B159B9 /* LaunchScreen.storyboard in Resources */,
-				4F8A27FC27C0F99F00B159B9 /* Assets.xcassets in Resources */,
-				4F8A27FA27C0F99D00B159B9 /* Main.storyboard in Resources */,
+				4F8A281027C11A0D00B159B9 /* Assets.xcassets in Resources */,
+				4F8A281127C11A1000B159B9 /* LaunchScreen.storyboard in Resources */,
+				4F8A281427C11B3D00B159B9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,9 +195,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F8A281827C122CC00B159B9 /* LPError+Extensions.swift in Sources */,
 				4F8A27F727C0F99D00B159B9 /* SearchViewController.swift in Sources */,
 				4F8A27F327C0F99D00B159B9 /* AppDelegate.swift in Sources */,
 				4F8A27F527C0F99D00B159B9 /* SceneDelegate.swift in Sources */,
+				4F8A280D27C1171200B159B9 /* MetaDataCache.swift in Sources */,
+				4F8A281627C11CD900B159B9 /* MetaData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,8 +349,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7J855UGZA4;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SampleLinkPresentation/Info.plist;
+				INFOPLIST_FILE = SampleLinkPresentation/Supports/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -364,8 +377,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7J855UGZA4;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SampleLinkPresentation/Info.plist;
+				INFOPLIST_FILE = SampleLinkPresentation/Supports/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
