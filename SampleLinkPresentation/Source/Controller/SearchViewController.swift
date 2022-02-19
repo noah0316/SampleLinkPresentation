@@ -10,15 +10,23 @@ import UIKit
 
 final class SearchViewController: UIViewController {
     
-    private let activityIndicator = UIActivityIndicatorView()
     @IBOutlet private weak var stackView: UIStackView?
     @IBOutlet private weak var errorLabel: UILabel?
     @IBOutlet private weak var urlInputTextField: UITextField?
+    private let activityIndicator = UIActivityIndicatorView()
     private var linkView = LPLinkView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+    }
+    
+    @IBAction private func searchButtonDidTap(_ sender: Any) {
+        hideErrorLabel()
+        activityIndicator.startAnimating()
+        if let requestUrl = urlInputTextField?.text {
+            setUpLinkView(for: requestUrl)
+        }
     }
     
     private func setUpUI() {
@@ -30,14 +38,6 @@ final class SearchViewController: UIViewController {
         errorLabel?.isHidden = true
     }
     
-    @IBAction private func searchButtonDidTap(_ sender: Any) {
-        hideErrorLabel()
-        activityIndicator.startAnimating()
-        if let requestUrl = urlInputTextField?.text {
-            setUpLinkView(for: requestUrl)
-        }
-    }
-    
     private func setUpLinkView(for stringUrl: String) {
         guard let url = URL(string: stringUrl) else {
             handleFailureFetchMetaData()
@@ -46,27 +46,35 @@ final class SearchViewController: UIViewController {
         
         linkView.removeFromSuperview()
         linkView = LPLinkView(url: url)
-        
-        MetaData.fetchMetaData(for: url) { [weak self] metadata in
-            guard let self = self else { return }
-            
-            switch metadata {
-            case .success(let metadata):
-                if let imageProvider = metadata.imageProvider {
-                    metadata.iconProvider = imageProvider
-                }
-        
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
+        fetchMetaData(for: url)
+        self.stackView?.insertArrangedSubview(linkView, at: 0)
+    }
+    
+    private func fetchMetaData(for url: URL) {
+        if let existingMetaData = MetaDataCache.retrieve(urlString: url.absoluteString) {
+            linkView = LPLinkView(metadata: existingMetaData)
+            activityIndicator.stopAnimating()
+        } else {
+            MetaData.fetchMetaData(for: url) { [weak self] metadata in
+                guard let self = self else { return }
+                
+                switch metadata {
+                case .success(let metadata):
+                    if let imageProvider = metadata.imageProvider {
+                        metadata.iconProvider = imageProvider
+                    }
                     
-                    self.activityIndicator.stopAnimating()
-                    self.linkView.metadata = metadata
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self = self else { return }
+                        
+                        self.activityIndicator.stopAnimating()
+                        self.linkView.metadata = metadata
+                    }
+                case .failure(let error):
+                    self.handleFailureFetchMetaData(for: error)
                 }
-            case .failure(let error):
-                self.handleFailureFetchMetaData(for: error)
             }
         }
-        self.stackView?.insertArrangedSubview(linkView, at: 0)
     }
     
     private func handleFailureFetchMetaData(for error: LPError? = nil) {

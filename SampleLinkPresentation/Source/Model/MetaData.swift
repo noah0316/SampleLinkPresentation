@@ -13,15 +13,17 @@ struct MetaData {
         let metaDataProvider = LPMetadataProvider()
         metaDataProvider.timeout = 3
         
-        metaDataProvider.startFetchingMetadata(for: url) { metadata, error in
-            guard let metadata = metadata, error == nil
+        metaDataProvider.startFetchingMetadata(for: url) { metaData, error in
+            guard let metaData = metaData, error == nil
             else {
                 if let error = error as? LPError {
                     completion(.failure(error))
                 }
                 return
             }
-            completion(.success(metadata))
+            
+            MetaDataCache.cache(metaData: metaData)
+            completion(.success(metaData))
         }
     }
     
