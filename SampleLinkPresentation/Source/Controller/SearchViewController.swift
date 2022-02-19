@@ -10,6 +10,7 @@ import UIKit
 
 final class SearchViewController: UIViewController {
     
+    private let activityIndicator = UIActivityIndicatorView()
     @IBOutlet private weak var stackView: UIStackView?
     @IBOutlet private weak var errorLabel: UILabel?
     @IBOutlet private weak var urlInputTextField: UITextField?
@@ -17,7 +18,12 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpUI()
+    }
+    
+    private func setUpUI() {
         hideErrorLabel()
+        stackView?.insertArrangedSubview(activityIndicator, at: 0)
     }
     
     private func hideErrorLabel() {
@@ -26,12 +32,13 @@ final class SearchViewController: UIViewController {
     
     @IBAction private func searchButtonDidTap(_ sender: Any) {
         hideErrorLabel()
+        activityIndicator.startAnimating()
         if let requestUrl = urlInputTextField?.text {
-            setupLinkView(for: requestUrl)
+            setUpLinkView(for: requestUrl)
         }
     }
     
-    private func setupLinkView(for stringUrl: String) {
+    private func setUpLinkView(for stringUrl: String) {
         guard let url = URL(string: stringUrl) else {
             handleFailureFetchMetaData()
             return
@@ -52,6 +59,7 @@ final class SearchViewController: UIViewController {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     
+                    self.activityIndicator.stopAnimating()
                     self.linkView.metadata = metadata
                 }
             case .failure(let error):
@@ -67,6 +75,7 @@ final class SearchViewController: UIViewController {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             
+            self.activityIndicator.stopAnimating()
             self.linkView.removeFromSuperview()
             self.errorLabel?.text = errorLabelText
             self.errorLabel?.isHidden = false
